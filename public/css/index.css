@@ -1,0 +1,82 @@
+
+.about-icon{
+	background: url(../images/icon-set.png) no-repeat;
+	display: inline-block;
+	width: 41px;
+	margin-bottom: 6px;
+}
+.icon-college{ background-position: 0 0; height: 23px; } 
+.icon-course{ background-position: 8px -73px; height: 32px; } 
+.icon-portfel{ background-position: 0 -155px; height: 30px; } 
+.about-me .photo{
+	float: left;
+	margin: 4px 32px 0 40px;
+}
+.about-me .item{
+	padding: 0 0 0 70px;
+	margin-bottom: 23px;
+	margin-top: 9px;
+}
+.about-me .info-block{
+	display: inline-block;
+	margin-left: 15px;
+}
+.about-me .info-block .where{
+	font-family: 'fira_sansbook';
+	font-size: 16px;
+	margin: 0;
+}
+.about-me .info-block .period{
+	font-family: 'fira_sanslight';
+	font-size: 15px;
+	margin: 0;
+}
+.about-me .dl-horizontal{
+	margin-top: 2px;
+}
+.dl-horizontal{
+  color: #4a545d;
+  line-height: 2.1;
+  margin: 0;
+  width: 344px;
+  display: inline-block;
+}
+.dl-horizontal dt{
+  font-family: 'fira_sansmedium';
+  font-size: 16px;
+  float: left;
+  clear: left;
+  margin-right: 10px;
+  text-align:left;
+}
+.dl-horizontal dd{
+  font-family: 'fira_sansbook'; 
+  font-size: 15px;
+  float: left;
+  margin-bottom: 7px;
+  margin-left: 0;
+}
+.about-me .skills{
+	width: 188px;
+	line-height: 2.0;
+}
+/* Градиент создан при помощи онлайн генератора */
+.skills .skill-item {
+	font-family: 'ProximaNovaCondensedSemibold';
+  background: #3ba8c0; /* Old browsers */
+	background: -moz-linear-gradient(top,  #3ba8c0 0%, #3ba8c0 49%, #2e8ca2 50%, #2e8ca2 99%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3ba8c0), color-stop(49%,#3ba8c0), color-stop(50%,#2e8ca2), color-stop(99%,#2e8ca2)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #3ba8c0 0%,#3ba8c0 49%,#2e8ca2 50%,#2e8ca2 99%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #3ba8c0 0%,#3ba8c0 49%,#2e8ca2 50%,#2e8ca2 99%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #3ba8c0 0%,#3ba8c0 49%,#2e8ca2 50%,#2e8ca2 99%); /* IE10+ */
+	background: linear-gradient(to bottom,  #3ba8c0 0%,#3ba8c0 49%,#2e8ca2 50%,#2e8ca2 99%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3ba8c0', endColorstr='#2e8ca2',GradientType=0 ); /* IE6-9 */
+	border-radius: 4px;
+	padding: 0 7px;
+	margin-right: 6px;
+	color: white;
+	display: inline-block;
+	line-height: 1.2;
+	min-width: 40px;
+	text-align: center;
+}

@@ -1,0 +1,130 @@
+<div class="main contact-me"> 
+  <section class="box">
+    <div class="sec-header">
+      <h2 class="h2">У вас интересный проект? Напишите мне!</h2>
+    </div> 
+    <form id="contact-me" class="form" role="form">   
+      <div class="form-line">
+        <div class="form-group pull-left">
+          <label for="name" class="label">Имя</label>
+          <input type="text" name="name" class="input" id="name" placeholder="Как к вам обращаться" required>
+        </div>
+        <div class="form-group pull-right">
+          <label for="email" class="label">Email</label>
+          <input type="email" name="email" class="input" id="email" placeholder="Куда мне писать"  required>
+        </div>
+      </div>
+      <!-- Сообщение -->
+      <div class="form-group">
+        <label for="message" class="label">Сообщение</label>
+        <textarea name="message" id="message" class="textarea" rows="3" placeholder="Кратко в чем суть" required></textarea>
+      </div>
+      <!-- Капча -->
+      <div class="form-group captcha-wrap">
+        <span id="captcha-prompt" style="display:none">Докажите, что вы не робот!</span><br/>
+        <div class="g-recaptcha" data-sitekey="6Ld_UgETAAAAABm-XwNXpf8Cnx63mVBsJVSLuayj"></div>
+      </div>
+      <!-- Кнопка "Отправить" -->
+      <div class="button-group">
+        <button type="submit" id="submit" class="btn">Отправить</button>
+        <button type="reset" id="reset" class="btn btn-res">Очистить</button>
+      </div>      
+    </form>            
+  </section>           
+</div>
+
+
+<script>
+
+var processingForm = false;
+
+$("#contact-me").validate({
+      rules: {
+          email: {email:true, required: true},
+          name: {required: true},
+          message: {required:true}
+        },
+        messages: {
+          name: "Как вас зовут?",
+          email: "Нет имейла, нет сообщения",
+          message: "Напишите мне"
+        },
+        tooltip_options: {
+          email: { placement:'right' },
+          name: { placement:'left' },
+          message: {placement:'bottom'}
+        },
+    });
+
+//callback handler for form submit
+$("#contact-me").submit(function(e)
+{
+    if(!$("#contact-me").validate()) {
+      return;
+    }
+
+    var postData = $(this).serializeArray();
+    var formURL = $(this).attr("action");
+    $.ajax(
+    {
+        url : formURL,
+        type: "POST",
+        data : postData,
+        contentType: "application/x-www-form-urlencoded;charset=utf-8",
+        success:function(data, textStatus, jqXHR) 
+        {
+            if (data && data.captchafailed) {
+              processingForm = false;
+              $('#captcha-prompt').show();
+              $("#submit").removeAttr('disabled');
+              $("#submit").prop('value', 'Отправить'); 
+              $("#submit").attr('value', 'Отправить'); 
+              $("#submit").text('Отправить'); 
+              return;
+            }
+
+            //data: return data from server
+            processingForm = false;
+            $("#submit").attr('disabled','disabled');
+            $("#submit").prop('value', 'Отправлено'); 
+            $("#submit").attr('value', 'Отправлено');
+            $("#submit").text('Отправлено'); 
+
+            $("#contact-me")[0].reset();
+        },
+        error: function(jqXHR, textStatus, errorThrown) 
+        {
+            //if fails      
+            processingForm = false;
+        }
+    });
+    e.preventDefault(); //STOP default action
+    //e.unbind(); //unbind. to stop multiple form submit.
+});
+ 
+$("#submit").click(function() {
+
+  if (!$("#contact-me").valid()) {
+    return false;
+  }
+
+  if (processingForm) {
+    return false;
+  }
+
+  $("#submit").attr('disabled','disabled');
+  $("#submit").prop('value', 'Отправляется..'); 
+  $("#submit").attr('value', 'Отправляется..'); 
+  $("#submit").text('Отправляется..'); 
+
+  processingForm = true;
+  $("#contact-me").submit(); //Submit  the FORM
+
+  return false;
+});
+
+$("#reset").click(function() {
+    $("#contact-me")[0].reset();
+});
+
+</script>

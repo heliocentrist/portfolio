@@ -1,0 +1,13 @@
+{
+  "name": "sunsurfers",
+  "version": "0.0.1",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.1",
+    "jquery-validation": "~1.13.1"
+  }
+}
