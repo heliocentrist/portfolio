@@ -19,7 +19,7 @@
 <div id="add-project">
   <div class="modal-wrapper">
     <div class="modal-header">
-      <button type="button" class="b-close"></button>
+      <div class="icon-close"></div>
       <h4 class="modal-title">Добавление проекта</h4>
     </div>
     <div class="modal-body">
@@ -30,7 +30,7 @@
       <!-- Название проекта -->
       <div class="form-group">
         <label for="projectName" class="label">Название проекта</label>
-        <input type="text" name="projectName" class="input" id="projectName" placeholder="Введите название" qtip-content="Вы не ввели название">
+        <input type="text" name="projectName" class="input" id="projectName" placeholder="Введите название" required>
       </div>      
       <!-- Картинка проекта -->
       <div class="form-group">
@@ -38,18 +38,18 @@
         <div class="fileupload-wrapper" id="uploadfile">
           <input id="fileupload" type="file" name="files[]" multiple />
           <input id="fileurl" type="hidden" name="fileurl" />
-          <input id="filename" type="text" class="input" name="filename" placeholder="Загрузите изображение" disabled qtip-content="Вы не выбрали изображение"/>
+          <input id="filename" type="text" class="input" name="filename" placeholder="Загрузите изображение" disabled />
         </div>
       </div>
       <!-- URL проекта -->
       <div class="form-group">
         <label for="projectUrl" class="label">URL проекта</label>
-        <input type="text" name="projectUrl" class="input" id="projectUrl" placeholder="Добавьте ссылку" qtip-content="Вы не добавили ссылку">
+        <input type="text" name="projectUrl" class="input" id="projectUrl" placeholder="Добавьте ссылку" required>
       </div>
       <!-- Описание -->
       <div class="form-group">
         <label for="projectDesc" class="label">Описание</label>
-        <textarea name="text" id="projectDesc" class="textarea" rows="3" placeholder="Пара слов о вашем проекте" qtip-content="Описание проекта обязательно"></textarea>
+        <textarea id="projectDesc" class="textarea" name="projectDesc" rows="3" placeholder="Пара слов о вашем проекте" required></textarea>
       </div>
       <!-- Кнопка "Отправить" -->
         <div class="btn-wrapp">
@@ -61,7 +61,7 @@
 </div>
 <script>
   $(document).ready(function () {
-            $dialog = $('#add-project')
+            $dialog2 = $('#add-project')
             .dialog({
                 autoOpen: false,
                 title : '',
@@ -75,13 +75,13 @@
      });
 
     $('.icon-add').click(function () {
-            $dialog.dialog('open');
+            $dialog2.dialog('open');
             return false; ////cancel eventbubbeling
             });
      });
 
-    function showDialog() {
-            $dialog.show();
+    function showDialog2() {
+            $dialog2.show();
             return false //cancel eventbubbeling
     };
 
@@ -89,16 +89,19 @@
 
   $("#add-new-project").validate({
         rules: {
-          login: {required: true},
-          password: {required: true},
+          projectName: {required: true},
+          projectUrl: {required: true},
+          projectDesc: {required:true},
         },
         messages: {
-          login: "Введите логин",
-          password: "Введите пароль",
+          projectName: "Введите имя",
+          projectUrl: "Введите ссылку",
+          projectDesc: "Введите описание",
         },
         tooltip_options: {
-          login: { placement:'left' },
-          password: { placement:'left' },
+          projectName: { placement:'left' },
+          projectUrl: { placement:'left' },
+          projectDesc: { placement:'left' },
         },
     });
 
@@ -122,11 +125,11 @@
               //data: return data from server
               processingForm = false;
               $("#btn-add").attr('disabled','disabled');
-              $("#btn-add").prop('value', 'Sent'); 
-              $("#btn-add").attr('value', 'Sent'); 
+              $("#btn-add").prop('value', 'Добавлено'); 
+              $("#btn-add").attr('value', 'Добавлено'); 
 
               $("#add-new-project")[0].reset();
-              $dialog.hide();
+              $dialog2.hide();
           },
           error: function(jqXHR, textStatus, errorThrown) 
           {
@@ -150,8 +153,8 @@ $("#add-new-project").click(function() {
   }
 
   $("#btn-add").attr('disabled','disabled');
-  $("#btn-add").prop('value', 'Login...'); 
-  $("#btn-add").attr('value', 'Login...'); 
+  $("#btn-add").prop('value', 'Добавление...'); 
+  $("#btn-add").attr('value', 'Добавление...'); 
 
   processingForm = true;
   $("#add-new-project").submit();
@@ -159,9 +162,9 @@ $("#add-new-project").click(function() {
   return false;
 });
 
-$(".btn-close").click(function() {
+$(".icon-close").click(function() {
 
     $("#add-new-project")[0].reset();
-    $dialog.hide();
+    $dialog2.hide();
 });
 </script>
