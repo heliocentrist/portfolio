@@ -10,10 +10,158 @@
         <a href="http://aeolidia.com/projects/posie" target="_blank"></a>
         <p class="description">Posie project</p>
       </div>
-        <a href="#" class="item add-new-item">
+        <a href="#add-project" class="item add-new-item">
           <div class="icon-add"></div>
           <span>Добавить проект</span>
         </a>
-    </div>
-  </section>           
+    </div>          
 </div>
+<div id="add-project">
+  <div class="modal-wrapper">
+    <div class="modal-header">
+      <button type="button" class="b-close"></button>
+      <h4 class="modal-title">Добавление проекта</h4>
+    </div>
+    <div class="modal-body">
+      <form id="add-new-project" class="form" role="form">  
+      <!-- Вывод сообщений с сервера -->
+      <div class="server-mes error-mes"></div>
+      <div class="server-mes success-mes"></div>
+      <!-- Название проекта -->
+      <div class="form-group">
+        <label for="projectName" class="label">Название проекта</label>
+        <input type="text" name="projectName" class="input" id="projectName" placeholder="Введите название" qtip-content="Вы не ввели название">
+      </div>      
+      <!-- Картинка проекта -->
+      <div class="form-group">
+        <label for="projectImage" class="label">Картинка проекта</label>
+        <div class="fileupload-wrapper" id="uploadfile">
+          <input id="fileupload" type="file" name="files[]" multiple />
+          <input id="fileurl" type="hidden" name="fileurl" />
+          <input id="filename" type="text" class="input" name="filename" placeholder="Загрузите изображение" disabled qtip-content="Вы не выбрали изображение"/>
+        </div>
+      </div>
+      <!-- URL проекта -->
+      <div class="form-group">
+        <label for="projectUrl" class="label">URL проекта</label>
+        <input type="text" name="projectUrl" class="input" id="projectUrl" placeholder="Добавьте ссылку" qtip-content="Вы не добавили ссылку">
+      </div>
+      <!-- Описание -->
+      <div class="form-group">
+        <label for="projectDesc" class="label">Описание</label>
+        <textarea name="text" id="projectDesc" class="textarea" rows="3" placeholder="Пара слов о вашем проекте" qtip-content="Описание проекта обязательно"></textarea>
+      </div>
+      <!-- Кнопка "Отправить" -->
+        <div class="btn-wrapp">
+          <button type="submit" class="btn" id="btn-add">Добавить</button>
+        </div>      
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+            $dialog = $('#add-project')
+            .dialog({
+                autoOpen: false,
+                title : '',
+              bgiframe    : true,
+                position    : 'center',
+                draggable   : false,
+                resizable   : false,
+            stack       : true,
+            zIndex      : 99999,
+            modal       : true,
+     });
+
+    $('.icon-add').click(function () {
+            $dialog.dialog('open');
+            return false; ////cancel eventbubbeling
+            });
+     });
+
+    function showDialog() {
+            $dialog.show();
+            return false //cancel eventbubbeling
+    };
+
+  var processingForm = false;
+
+  $("#add-new-project").validate({
+        rules: {
+          login: {required: true},
+          password: {required: true},
+        },
+        messages: {
+          login: "Введите логин",
+          password: "Введите пароль",
+        },
+        tooltip_options: {
+          login: { placement:'left' },
+          password: { placement:'left' },
+        },
+    });
+
+  //callback handler for form submit
+  $("#add-new-project").submit(function(e) {
+    e.preventDefault();
+
+      if(!$("#add-new-project").validate()) {
+        return;
+      }
+
+      var postData = $(this).serializeArray();
+      var formURL = $(this).attr("action");
+      $.ajax(
+      {
+          url : formURL,
+          type: "POST",
+          data : postData,
+          success:function(data, textStatus, jqXHR) 
+          {
+              //data: return data from server
+              processingForm = false;
+              $("#btn-add").attr('disabled','disabled');
+              $("#btn-add").prop('value', 'Sent'); 
+              $("#btn-add").attr('value', 'Sent'); 
+
+              $("#add-new-project")[0].reset();
+              $dialog.hide();
+          },
+          error: function(jqXHR, textStatus, errorThrown) 
+          {
+              //if fails      
+              processingForm = false;
+          }
+      });
+      e.preventDefault(); //STOP default action
+      e.unbind(); //unbind. to stop multiple form submit.
+
+  });
+ 
+$("#add-new-project").click(function() {
+
+  if (!$("#add-new-project").valid()) {
+  return false;
+  }
+
+  if (processingForm) {
+    return false;
+  }
+
+  $("#btn-add").attr('disabled','disabled');
+  $("#btn-add").prop('value', 'Login...'); 
+  $("#btn-add").attr('value', 'Login...'); 
+
+  processingForm = true;
+  $("#add-new-project").submit();
+
+  return false;
+});
+
+$(".btn-close").click(function() {
+
+    $("#add-new-project")[0].reset();
+    $dialog.hide();
+});
+</script>

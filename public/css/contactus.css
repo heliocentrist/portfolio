@@ -19,11 +19,13 @@
 .contact-me .input {
   height: 28px; 
 }
+
 .contact-me .textarea{
   height: 170px;
 }
 .contact-me .form-line{
   overflow: hidden;
+  margin-bottom: 20px;
 }
 .contact-me .form-line .form-group{
   width: 46%;

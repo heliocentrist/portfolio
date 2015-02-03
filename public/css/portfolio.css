@@ -104,6 +104,28 @@
 }
 
 
-#new-progect-popup { 
-	display:none; 
+.overlay-pop {
+  position: fixed;
+  top: 0;
+  display:none;
+  left: 0;
+  height: 100% !important;
+  width: 100% !important;
+  z-index: 10;
+  background-color: rgba(0,0,0,0.5);
+  padding-left:35%;
+  padding-top: 5%;
+}
+
+
+.ui-widget-header {
+  display:none;
+}
+
+.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front {
+  height: auto;
+  display: none;
+  z-index: 101;
+  padding:0;
+  margin-left:35%;
 }

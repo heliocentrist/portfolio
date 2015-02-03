@@ -7,12 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=8">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="/components/jquery.ui/jquery-ui-1.11.2/jquery-ui.css">
     <link rel="stylesheet" href="/fonts/fira.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/portfolio.css">
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/contactus.css">
+    <link rel="stylesheet" href="/css/login.css">
+
     <!--[if lt IE 9]>
     <script src="/components/respond/dest/respond.min.js"></script>
     <script src="/components/html5shiv/dist/html5shiv.min.js"></script>
@@ -85,33 +86,138 @@
    </div>
    <div class="footer navbar-fixed-bottom">
     <div class="gradient-line"></div>
-      <a href="#" class="login"></a>
+      <a href="#login" class="login-icon" onclick="showDialog();"></a>
       <div id="copyright">
           <p> © 2015 Это мой сайт, не воруй</p>
         </div>
-    </div>
-    <div class="container" style="display:none">  
-  <div class="modal-wrapper login-wrapper">
-    <div class="modal-header">
-      <h4 class="modal-title">Авторизуйтесь</h4>
-    </div>
-    <div class="modal-body">
-      <form id="login" class="form" role="form">   
-        <div class="server-mes error-mes"></div>
-        <div class="server-mes success-mes"></div>
-        <div class="form-group">
-          <label for="login" class="label">Логин</label>
-          <input type="text" name="login" class="input" id="name" qtip-content="Вы не ввели логин">
-        </div>
-        <div class="form-group">
-          <label for="password" class="label">Пароль</label>
-          <input type="password" name="password" class="input" id="password" qtip-content="Вы не ввели пароль">
-        </div>
-        <button type="submit" class="btn">Войти</button>    
-      </form>
-    </div>   
+    </div> 
+      <div class="overlay">
+        <div class="modal-wrapper login-wrapper">
+          <div class="btn-close"></div>
+          <div class="modal-header">
+            <h4 class="modal-title">Авторизуйтесь</h4>
+          </div>
+          <div class="modal-body">
+          <form id="login" class="form" role="form">   
+          <div class="form-group">
+            <label for="login" class="label">Логин</label>
+            <input type="text" name="login" class="input" id="name" required>
+          </div>
+          <div class="form-group">
+            <label for="password" class="label">Пароль</label>
+            <input type="password" name="password" class="input" id="password" required>
+          </div>
+            <button type="submit" id="login-button" class="btn">Войти</button>    
+        </form>  
   </div>   
+</div>
 </div> 
      <script src="/js/main.js" type="text/javascript"></script>
   </body>
+  <script>
+  $(document).ready(function () {
+            $dialog = $('.overlay')
+            .dialog({
+                autoOpen: false,
+                title : '',
+              bgiframe    : true,
+                position    : 'center',
+                draggable   : false,
+                resizable   : false,
+            stack       : true,
+            zIndex      : 99999,
+            modal       : true,
+     });
+
+    $('.login-icon').click(function () {
+            $dialog.dialog('open');
+            return false; ////cancel eventbubbeling
+            });
+     });
+
+    function showDialog() {
+            $dialog.show();
+            return false //cancel eventbubbeling
+    };
+
+  var processingForm = false;
+
+  $("#login").validate({
+        rules: {
+          login: {required: true},
+          password: {required: true},
+        },
+        messages: {
+          login: "Введите логин",
+          password: "Введите пароль",
+        },
+        tooltip_options: {
+          login: { placement:'left' },
+          password: { placement:'left' },
+        },
+    });
+
+  //callback handler for form submit
+  $("#login").submit(function(e) {
+    e.preventDefault();
+
+      if(!$("#login").validate()) {
+        return;
+      }
+
+      var postData = $(this).serializeArray();
+      var formURL = $(this).attr("action");
+      $.ajax(
+      {
+          url : formURL,
+          type: "POST",
+          data : postData,
+          success:function(data, textStatus, jqXHR) 
+          {
+              //data: return data from server
+              processingForm = false;
+              $("#login-button").attr('disabled','disabled');
+              $("#login-button").prop('value', 'Sent'); 
+              $("#login-button").attr('value', 'Sent'); 
+
+              $("#login")[0].reset();
+              $dialog.hide();
+          },
+          error: function(jqXHR, textStatus, errorThrown) 
+          {
+              //if fails      
+              processingForm = false;
+          }
+      });
+      e.preventDefault(); //STOP default action
+      e.unbind(); //unbind. to stop multiple form submit.
+
+  });
+ 
+$("#login").click(function() {
+
+  if (!$("#login").valid()) {
+  return false;
+  }
+
+  if (processingForm) {
+    return false;
+  }
+
+  $("#login-button").attr('disabled','disabled');
+  $("#login-button").prop('value', 'Login...'); 
+  $("#login-button").attr('value', 'Login...'); 
+
+  processingForm = true;
+  $("#login").submit();
+
+  return false;
+});
+
+$(".btn-close").click(function() {
+
+    $("#login")[0].reset();
+    $dialog.hide();
+});
+</script>
 </html>

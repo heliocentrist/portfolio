@@ -1,8 +1,12 @@
-.login-wrapper{
-	width: 590px;
-	min-height: 484px;
-	margin: 10% auto;
+
+
+.overlay .login-wrapper{
+	min-height: 45%;
 	text-align: center;
+	width: 45%;
+	margin-left: 35%;
+  	margin:0;
+  	padding:0;
 }
 .login-wrapper .input{
 	font-size: 26px;
@@ -22,9 +26,11 @@
 	padding-top: 15px;
 	padding-bottom: 15px;
 	border-width: 0 0 15px 0;
+	background-color: #67dffa;
 }
 .login-wrapper .modal-body{
 	padding: 16px 82px;
+	background-color: #eff3f7;
 }
 .login-wrapper .modal-title{
 	font-size: 40px;
@@ -32,3 +38,81 @@
 .login-wrapper .form-group {
 	margin-bottom: 14px;
 }
+
+.modal-wrapper{
+	box-shadow: 0px 6px 12.48px 0.52px rgba(13, 16, 7, 0.35);
+	border-radius: 5px;
+	margin-left:35%;
+	
+}
+.modal-header{
+	color: #fbfcfd;
+	padding: 6px 13px 2px;
+	border-bottom: 9px solid #67dffa;
+	border-radius: 5px 5px 0 0;
+}
+.modal-body{
+	padding: 7px 22px;	
+}
+.modal-title{
+	font-size: 23px;
+	color: #fbfcfd;
+	font-family: 'fira_sansregular';
+	font-weight: normal;
+	margin: 0;
+}
+.modal-body .btn-wrapp{
+	text-align: center;
+	margin: 13px auto 6px;
+}
+
+
+.ui-widget-header {
+  display:none;
+}
+
+.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front {
+  height: auto;
+  display: none;
+  z-index: 101;
+  padding:0;
+  margin-left:35%;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  display:none;
+  left: 0;
+  height: 100% !important;
+  width: 100% !important;
+  z-index: 10;
+  background-color: rgba(0,0,0,0.5);
+  padding-left:35%;
+  padding-top: 5%;
+}
+
+
+.btn-close {
+width: 80px;
+height: 80px;
+position: absolute;
+right: 500px;
+top:100px;
+top: 60px;
+overflow: hidden;
+border: none;
+background: url(../images/close-icon.png) no-repeat center center;
+text-indent: 200%;
+color: transparent;
+outline: none;
+z-index: 100;
+}
+
+.btn-close:hover {
+	cursor:pointer;
+}
+
+
+
+

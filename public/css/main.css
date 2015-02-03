@@ -80,7 +80,7 @@ p{
   position: relative;
   min-height: 1px;
   margin-right: 53px;
-  margin-left: 250px;
+  margin-left: 18%;
 }
 
 
@@ -417,6 +417,7 @@ input, textarea, button {
   font-family: 'fira_sansbook';
   color: #58697a;
   font-size: 18px;
+  padding:0;
 }
 
 .textarea{
@@ -511,7 +512,7 @@ input, textarea, button {
   top: 0;
 }
 
-.login {
+.login-icon {
 width: 20px;
 height: 35px;
 position: absolute;
@@ -520,42 +521,9 @@ bottom: 25px;
 background: url('../images/login.png') no-repeat;
 }
 
-.login-wrapper{
-  width: 590px;
-  min-height: 484px;
-  margin: 10% auto;
-  text-align: center;
+.login-icon:hover {
+  cursor:pointer;
 }
-.login-wrapper .input{
-  font-size: 26px;
-  padding: 6px 12px;
-  height: 60px; 
-}
-.login-wrapper .btn {
-  font-size: 31px;
-  height: 53px;
-  margin-top: 19px;
-  padding: 0 70px;
-}
-.login-wrapper .label{
-  font-size: 35px;
-}
-.login-wrapper .modal-header{
-  padding-top: 15px;
-  padding-bottom: 15px;
-  border-width: 0 0 15px 0;
-}
-.login-wrapper .modal-body{
-  padding: 16px 82px;
-}
-.login-wrapper .modal-title{
-  font-size: 40px;
-}
-.login-wrapper .form-group {
-  margin-bottom: 14px;
-}
-
-
 
 
 @media (max-width: 1200px) {
