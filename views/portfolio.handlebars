@@ -113,30 +113,9 @@
         return;
       }
 
-      var postData = $(this).serializeArray();
-      var formURL = $(this).attr("action");
-      $.ajax(
-      {
-          url : formURL,
-          type: "POST",
-          data : postData,
-          success:function(data, textStatus, jqXHR) 
-          {
-              //data: return data from server
-              processingForm = false;
-              $("#btn-add").attr('disabled','disabled');
-              $("#btn-add").prop('value', 'Добавлено'); 
-              $("#btn-add").attr('value', 'Добавлено'); 
-
-              $("#add-new-project")[0].reset();
+     $("#add-new-project")[0].reset();
               $dialog2.hide();
-          },
-          error: function(jqXHR, textStatus, errorThrown) 
-          {
-              //if fails      
-              processingForm = false;
-          }
-      });
+
       e.preventDefault(); //STOP default action
       e.unbind(); //unbind. to stop multiple form submit.
 
